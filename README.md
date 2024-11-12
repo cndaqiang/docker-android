@@ -126,3 +126,7 @@ cndaqiang@vmnode:~/git/docker-android$ docker push cndaqiang/docker-android:api-
 ```
 docker pull cndaqiang/docker-android:api-33
 ```
+或者
+```
+docker run -d --device /dev/kvm -p 5555:5555 -v androiddata:/data -e PARTITION=16384 -e MEMORY=4096 -e CORES=4 --name docker-android-emulator dockerhub.anzu.vip/cndaqiang/docker-android-emulator:api-33
+```

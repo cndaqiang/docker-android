@@ -9,6 +9,7 @@ EMULATOR_CONSOLE_PORT=5554
 # The ADB port used to connect to ADB.
 ADB_PORT=5555
 OPT_PARTITION=${PARTITION:-8192} # cndaqiang add to set storage. defaulr 8192 8G
+EMULATOR_ARGS=${EMULATOR_ARGS:-""} 
 OPT_MEMORY=${MEMORY:-8192}
 OPT_CORES=${CORES:-4}
 OPT_SKIP_AUTH=${SKIP_AUTH:-true}
@@ -68,6 +69,7 @@ echo "GPU           - $GPU_MODE"
 echo "PARTITION     - $OPT_PARTITION" # cndaqiang add to set storage
 echo "MEMORY        - $OPT_MEMORY"
 echo "CORES         - $OPT_CORES"
+echo "ARGS          - $EMULATOR_ARGS"
 # cndaqiang add to set storage: -partition-size
 emulator \
   -avd android \
@@ -79,7 +81,8 @@ emulator \
   -ranchu \
   $AUTH_FLAG \
   -no-window \
-  -no-snapshot  || update_state "ANDROID_STOPPED"
+  -no-snapshot  \
+  $EMULATOR_ARGS || update_state "ANDROID_STOPPED"
 
 
   # -qemu \
