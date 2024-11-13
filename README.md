@@ -12,13 +12,11 @@ docker pull dockerhub.anzu.vip/halimqarroum/docker-android:api-33
 
 ## 构建镜像
 * 本项目主要修改了原始脚本的[start-emulator.sh](https://github.com/HQarroum/docker-android/blob/main/scripts/start-emulator.sh)
-* 修改后的Dockerfile和文件在`docker-android.mod`目录
-* `docker-android.mod/Dockerfile` 本项目的Dockerfile, 如需替换原始项目的不同版本, 则修改其中的`FROM`
-* `docker-android.mod/start-emulator.mod.sh` 本项目修改后的启动脚本
+* `Dockerfile` 本项目的Dockerfile, 如需替换原始项目的不同版本, 则修改其中的`FROM`
+* `start-emulator.mod.sh` 本项目修改后的启动脚本
 
 ```
-cndaqiang@vmnode:~/git/docker-android$ cd docker-android.mod/
-cndaqiang@vmnode:~/git/docker-android/docker-android.mod$ docker build -t docker-android.mod:latest .
+cndaqiang@vmnode:~/git/docker-android$ docker build -t docker-android.mod:latest .
 [+] Building 0.2s (8/8) FINISHED                                                             docker:default
  => [internal] load build definition from Dockerfile                                                   0.0s
  => => transferring dockerfile: 452B                                                                   0.0s
@@ -38,7 +36,7 @@ cndaqiang@vmnode:~/git/docker-android/docker-android.mod$ docker build -t docker
 
 查看镜像
 ```
-cndaqiang@vmnode:~/git/docker-android/docker-android.mod$ docker images
+cndaqiang@vmnode:~/git/docker-android$ docker images
 REPOSITORY                                       TAG       IMAGE ID       CREATED         SIZE
 docker-android.mod                               latest    13706163958f   16 seconds ago   6.83GB
 dockerhub.anzu.vip/halimqarroum/docker-android   api-33    829e36bda510   6 months ago     6.83GB
@@ -75,8 +73,8 @@ docker run -d --device /dev/kvm -p 5555:5555 -v androiddata:/data -e PARTITION=1
    - **说明**：这个环境变量通常用于指定模拟器的分区大小。在 Android 模拟器中，分区大小决定了虚拟设备的存储容量（单位是 MB）。`16384` 表示设置分区大小为 16GB。这个值会影响模拟器内部虚拟设备存储的大小（例如应用安装和数据存储空间）。
 
 * **`-e EMULATOR_ARGS="-timezone Asia/Shanghai"`**:  
-- **含义**：自定义启动 Android 模拟器时的参数，此处设置时区为`Asia/Shanghai`。
-- **说明**：该环境变量用于向模拟器传递额外的启动选项。你可以通过设置 `EMULATOR_ARGS` 来定制模拟器的行为。例如：`-no-accel -no-boot-anim`。
+   - **含义**：自定义启动 Android 模拟器时的参数，此处设置时区为`Asia/Shanghai`。
+   - **说明**：该环境变量用于向模拟器传递额外的启动选项。你可以通过设置 `EMULATOR_ARGS` 来定制模拟器的行为。例如：`-no-accel -no-boot-anim`。
 
 * **`-e MEMORY=4096`**:
    - **含义**：设置环境变量 `MEMORY` 为 `4096`。
