@@ -1,6 +1,7 @@
 ## 说明
 * 因为原始的镜像[HQarroum/docker-android](https://github.com/HQarroum/docker-android/tree/main)只是基础功能, 自定义参数少, 且缺乏手册
 * 本仓库仍以原始仓库的镜像为基础进行构建, 并添加自定义的功能, 如存储空间大小, 并补充相关手册
+* GitHUB自动编译发布地址: [cndaqiang/docker-android](https://hub.docker.com/r/cndaqiang/docker-android)
 * 我也试图从头构建[docker-android-emulator](https://github.com/cndaqiang/docker-android-emulator), 但此版本无法运行WZRY等APP.
 
 ## 使用
@@ -47,7 +48,7 @@ dockerhub.anzu.vip/halimqarroum/docker-android   api-33    829e36bda510   6 mont
 ## 创建容器
 
 ```bash
-docker run -d --device /dev/kvm -p 5555:5555 -v androiddata:/data -e PARTITION=16384 -e MEMORY=4096 -e CORES=2 --name docker-android docker-android.mod:latest
+docker run -d --device /dev/kvm -p 5555:5555 -v androiddata:/data -e PARTITION=16384 -e EMULATOR_ARGS="-timezone Asia/Shanghai" -e MEMORY=4096 -e CORES=2 --name docker-android docker-android.mod:latest
 ```
 
 
@@ -73,6 +74,10 @@ docker run -d --device /dev/kvm -p 5555:5555 -v androiddata:/data -e PARTITION=1
    - **含义**：设置环境变量 `PARTITION` 为 `16384`。
    - **说明**：这个环境变量通常用于指定模拟器的分区大小。在 Android 模拟器中，分区大小决定了虚拟设备的存储容量（单位是 MB）。`16384` 表示设置分区大小为 16GB。这个值会影响模拟器内部虚拟设备存储的大小（例如应用安装和数据存储空间）。
 
+* **`-e EMULATOR_ARGS="-timezone Asia/Shanghai"`**:  
+- **含义**：自定义启动 Android 模拟器时的参数，此处设置时区为`Asia/Shanghai`。
+- **说明**：该环境变量用于向模拟器传递额外的启动选项。你可以通过设置 `EMULATOR_ARGS` 来定制模拟器的行为。例如：`-no-accel -no-boot-anim`。
+
 * **`-e MEMORY=4096`**:
    - **含义**：设置环境变量 `MEMORY` 为 `4096`。
    - **说明**：这个环境变量用于设置模拟器的内存大小，单位为 MB。`4096` 表示模拟器分配 4GB 的内存给虚拟设备运行。增加内存可以提升模拟器的性能，但也会增加对主机资源的占用。
@@ -96,7 +101,7 @@ docker run -d --device /dev/kvm -p 5555:5555 -v androiddata:/data -e PARTITION=1
 * 使用`-entrypoint`禁止程序自动启动
 
 ```bash
-docker run -it --entrypoint /bin/bash --rm --device /dev/kvm -p 5555:5555 -e PARTITION=4096 -e MEMORY=4096 -e CORES=2 docker-android.mod:latest
+docker run -it --entrypoint /bin/bash --rm --device /dev/kvm -p 5555:5555 -e PARTITION=4096  -e MEMORY=4096 -e CORES=2 docker-android.mod:latest
 ```
 
 ## 推送到dockerhub
@@ -124,10 +129,10 @@ cndaqiang@vmnode:~/git/docker-android$ docker push cndaqiang/docker-android:api-
 
 你可以使用我预编译的这个版本
 ```
-docker pull cndaqiang/docker-android:api-33
+docker pull cndaqiang/docker-android:api-33-mod
 ```
 
 额外的参数`EMULATOR_ARGS="-timezone Asia/Shanghai"`
 ```
-docker run -d --rm --device /dev/kvm -p 5555:5555 -v data:/data -e PARTITION=24576 -e EMULATOR_ARGS="-timezone Asia/Shanghai" -e MEMORY=6144 -e CORES=4 --name docker-android cndaqiang/docker-android:api-33
+docker run -d --rm --device /dev/kvm -p 5555:5555 -v data:/data -e PARTITION=24576 -e EMULATOR_ARGS="-timezone Asia/Shanghai" -e MEMORY=6144 -e CORES=4 --name docker-android cndaqiang/docker-android:api-33-mod
 ```
