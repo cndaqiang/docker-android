@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         Dockerfile: [ 
-          { file: 'Dockerfile.api33', suffix: 'api-33' }
+          { file: 'Dockerfile.api33', suffix: 'api-33-mod' }
         ]
     runs-on: ubuntu-latest
     steps:
