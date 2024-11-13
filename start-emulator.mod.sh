@@ -28,6 +28,8 @@ export USER=root
 
 # Creating the Android Virtual Emulator.
 TEST_AVD=$(avdmanager list avd | grep -c "android.avd" || true)
+#应采用这个, 原始的未建成也能检索到.avd
+TEST_AVD=$(avdmanager list avd | grep -c "Based on:" || true)
 if [ "$TEST_AVD" == "1" ]; then
   echo "Use the exists Android Virtual Emulator ..."
 else
