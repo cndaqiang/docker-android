@@ -127,12 +127,8 @@ cndaqiang@vmnode:~/git/docker-android$ docker tag docker-android.mod:latest cnda
 cndaqiang@vmnode:~/git/docker-android$ docker push cndaqiang/docker-android:api-33
 ```
 
-你可以使用我预编译的这个版本
-```
-docker pull cndaqiang/docker-android:api-33-mod
-```
+## 你可以使用我预编译的这个版本
 
-额外的参数`EMULATOR_ARGS="-timezone Asia/Shanghai"`
 ```
 docker run -d --rm --device /dev/kvm -p 5555:5555 -v data:/data -e PARTITION=24576 -e EMULATOR_ARGS="-timezone Asia/Shanghai" -e MEMORY=6144 -e CORES=4 --name docker-android cndaqiang/docker-android:api-33-mod
 ```
