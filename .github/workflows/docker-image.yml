@@ -1,0 +1,33 @@
+name: Docker Android CI
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - 'Dockerfile'
+      - 'Dockerfile.api33'
+      - 'start-emulator.mod.sh'
+      - '.github/workflows/*'
+
+jobs:
+
+  # Builds all Android API images with API level 33 and below.
+  build-apis:
+    strategy:
+      matrix:
+        Dockerfile: [ 
+          { file: 'Dockerfile.api33', suffix: 'api-33' }
+        ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      - name: Build Docker image 
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          file: ${{ matrix.Dockerfile.file }}
+          tags: cndaqiang/docker-android:${{ matrix.Dockerfile.suffix }}
