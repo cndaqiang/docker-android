@@ -1,7 +1,7 @@
 ## 说明
-* 因为原始的镜像只是基础功能, 自定义参数少, 且缺乏手册
+* 因为原始的镜像[HQarroum/docker-android](https://github.com/HQarroum/docker-android/tree/main)只是基础功能, 自定义参数少, 且缺乏手册
 * 本仓库仍以原始仓库的镜像为基础进行构建, 并添加自定义的功能, 如存储空间大小, 并补充相关手册
-* 在线构建仓库[docker-android-emulator](https://github.com/cndaqiang/docker-android-emulator)
+* 我也试图从头构建[docker-android-emulator](https://github.com/cndaqiang/docker-android-emulator), 但此版本无法运行WZRY等APP.
 
 ## 使用
 下载原作者镜像, 目前仅能通过镜像站下载
@@ -10,7 +10,7 @@ docker pull dockerhub.anzu.vip/halimqarroum/docker-android:api-33
 ```
 
 ## 构建镜像
-* 本项目主要修改了原始脚本的[start-emulator.sh](../scripts/start-emulator.sh)
+* 本项目主要修改了原始脚本的[start-emulator.sh](https://github.com/HQarroum/docker-android/blob/main/scripts/start-emulator.sh)
 * 修改后的Dockerfile和文件在`docker-android.mod`目录
 * `docker-android.mod/Dockerfile` 本项目的Dockerfile, 如需替换原始项目的不同版本, 则修改其中的`FROM`
 * `docker-android.mod/start-emulator.mod.sh` 本项目修改后的启动脚本
